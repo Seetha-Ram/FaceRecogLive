@@ -7,6 +7,7 @@ from torchvision import transforms
 from facenet_pytorch import MTCNN, InceptionResnetV1
 import numpy as np
 from PIL import Image
+import time
 
 # Load models
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -50,11 +51,15 @@ def main():
         if embedding_image is not None:
             st.image(image, caption="Uploaded Image", use_column_width=True)
 
-            st.write("Now, showing live stream from camera...")
+            st.write("Now, capturing 1-minute live stream from camera...")
 
             # Open camera stream
             cap = cv2.VideoCapture(0)
-            while True:
+
+            # Get current time
+            start_time = time.time()
+
+            while time.time() - start_time < 60:  # Capture for 1 minute
                 ret, frame = cap.read()
                 if not ret:
                     break
