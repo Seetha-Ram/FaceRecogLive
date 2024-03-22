@@ -59,7 +59,7 @@ def main():
             # Get current time
             start_time = time.time()
 
-            while time.time() - start_time < 60:  # Capture for 1 minute
+            while time.time() - start_time < 10:  
                 ret, frame = cap.read()
                 if not ret:
                     break
